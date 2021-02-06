@@ -25,7 +25,7 @@ void DIO_voidSetPinDirection(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy
 			{
 				/* To deal With Bit Masking      1- Clear a specific Bits 2- Assign a specific Bits */
 				GPIOA_CRL &= ~((u32)(0b1111)     <<Copy_u8PinID * 4) ;
-				GPIOA_CRL |= ~((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
+				GPIOA_CRL |= ((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
 			}
 			/*        HIGH PORT          */
 			else
@@ -33,7 +33,7 @@ void DIO_voidSetPinDirection(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy
 				Copy_u8PinID-=8;
 				/* To deal With Bit Masking      1- Clear a specific Bits 2- Assign a specific Bits */
 				GPIOA_CRH &= ~((u32)(0b1111)     <<Copy_u8PinID * 4) ;
-				GPIOA_CRH |= ~((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
+				GPIOA_CRH |= ((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
 			}
 			break;
 		case DIO_U8_PORTB:
@@ -41,7 +41,7 @@ void DIO_voidSetPinDirection(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy
 			{
 				/* To deal With Bit Masking      1- Clear a specific Bits 2- Assign a specific Bits */
 				GPIOB_CRL &= ~((u32)(0b1111)     <<Copy_u8PinID * 4) ;
-				GPIOB_CRL |= ~((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
+				GPIOB_CRL |= ((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
 			}
 			/*        HIGH PORT          */
 			else
@@ -49,7 +49,7 @@ void DIO_voidSetPinDirection(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy
 				Copy_u8PinID-=8;
 				/* To deal With Bit Masking      1- Clear a specific Bits 2- Assign a specific Bits */
 				GPIOB_CRH &= ~((u32)(0b1111)     <<Copy_u8PinID * 4) ;
-				GPIOB_CRH |= ~((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
+				GPIOB_CRH |= ((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
 			}
 			break;
 		case DIO_U8_PORTC:
@@ -57,7 +57,7 @@ void DIO_voidSetPinDirection(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy
 			{
 				/* To deal With Bit Masking      1- Clear a specific Bits 2- Assign a specific Bits */
 				GPIOC_CRL &= ~((u32)(0b1111)     <<Copy_u8PinID * 4) ;
-				GPIOC_CRL |= ~((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
+				GPIOC_CRL |= ((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
 			}
 			/*        HIGH PORT          */
 			else
@@ -65,7 +65,7 @@ void DIO_voidSetPinDirection(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy
 				Copy_u8PinID-=8;
 				/* To deal With Bit Masking      1- Clear a specific Bits 2- Assign a specific Bits */
 				GPIOC_CRH &= ~((u32)(0b1111)     <<Copy_u8PinID * 4) ;
-				GPIOC_CRH |= ~((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
+				GPIOC_CRH |= ((u32)(Copy_u8Mode)<<Copy_u8PinID * 4) ;
 			}
 			break;
 		}
@@ -83,7 +83,7 @@ void DIO_voidSetPinValue(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy_u8P
 			switch(Copy_u8Value)
 			{
 			case DIO_U8_HIGH:
-				GPIOA_BSRR= (1<Copy_u8PinID);
+				GPIOA_BSRR= (1<<Copy_u8PinID);
 				//SET_BIT(GPIOA_ODR,Copy_u8PinID);
 				break;
 			case DIO_U8_LOW:
@@ -97,7 +97,7 @@ void DIO_voidSetPinValue(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy_u8P
 				switch(Copy_u8Value)
 				{
 				case DIO_U8_HIGH:
-					GPIOB_BSRR= (1<Copy_u8PinID);
+					GPIOB_BSRR= (1<<Copy_u8PinID);
 					//SET_BIT(GPIOB_ODR,Copy_u8PinID);
 					break;
 				case DIO_U8_LOW:
@@ -111,11 +111,11 @@ void DIO_voidSetPinValue(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy_u8P
 					switch(Copy_u8Value)
 					{
 					case DIO_U8_HIGH:
-						GPIOA_BSRR= (1<Copy_u8PinID);
+						GPIOC_BSRR= (1<<Copy_u8PinID);
 						//SET_BIT(GPIOC_ODR,Copy_u8PinID);
 						break;
 					case DIO_U8_LOW:
-						GPIOA_BRR= (1<<Copy_u8PinID);
+						GPIOC_BRR= (1<<Copy_u8PinID);
 						//CLR_BIT(GPIOC_ODR,Copy_u8PinID);
 						break;
 					default:; /* Return ERROR */

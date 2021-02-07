@@ -26,7 +26,7 @@
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+#warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
 
@@ -36,7 +36,7 @@ void Delay_ms(u32 Copy_u32Time)
 	{
 		for(u16 j=0 ; j<565 ; j++)
 		{
-          asm("NOP");
+			asm("NOP");
 		}
 	}
 }
@@ -49,7 +49,7 @@ void LED_Pattern1(void)
 		for (u8 i=0;i<8; i++)
 		{
 			DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_HIGH);
-			Delay_ms(500);
+			Delay_ms(300);
 			DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_LOW);
 		}
 		j++;
@@ -64,50 +64,66 @@ void LED_Pattern2(void)
 	{
 		DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_HIGH);
 		DIO_voidSetPinValue(DIO_U8_PORTA,j,DIO_U8_HIGH);
-		Delay_ms(500);
+		Delay_ms(300);
 		j--;
 	}
+	j=7;
 	for (u8 i=0;i<4 && j>=4; i++)
 	{
 		DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_LOW);
 		DIO_voidSetPinValue(DIO_U8_PORTA,j,DIO_U8_LOW);
-		Delay_ms(500);
+		Delay_ms(300);
 		j--;
 	}
 }
 
 void LED_Pattern3(void)
 {
+	u8 j=7;
+	for (u8 i=0;i<4 && j>=4; i++)
+	{
+		DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_HIGH);
+		DIO_voidSetPinValue(DIO_U8_PORTA,j,DIO_U8_HIGH);
+		Delay_ms(300);
+		DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_LOW);
+		DIO_voidSetPinValue(DIO_U8_PORTA,j,DIO_U8_LOW);
+		Delay_ms(50);
+		j--;
+	}
+}
+void LED_Pattern4(void)
+{
 	u8 j=0;
 	while(j<2)
 	{
-		for (u8 i=0;i<8; i+2)
+		for (u8 i=0;i<8; i++)
 		{
 			DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_HIGH);
 			DIO_voidSetPinValue(DIO_U8_PORTA,i+1,DIO_U8_HIGH);
-			Delay_ms(500);
+			Delay_ms(300);
 			DIO_voidSetPinValue(DIO_U8_PORTA,i,DIO_U8_LOW);
 			DIO_voidSetPinValue(DIO_U8_PORTA,i+1,DIO_U8_LOW);
+			Delay_ms(50);
+			i++;
 		}
 		j++;
 	}
 }
 
-
 int main(void)
 {
 	RCC_voidInit();
 	RCC_voidEnablePeripheralClock(RCC_APB2, RCC_GPIOA_ID);
-	RCC_voidEnablePeripheralClock(RCC_APB2, 4);
-
-	DIO_voidSetPortDirection(DIO_U8_PORTA, DIO_OUTPUT_2MHZ_PP);
-	while(1){
-
+	DIO_voidSetPortDirection(DIO_U8_PORTA,LOW,DIO_OUTPUT_2MHZ_PP);
+	while(1)
+	{
 		LED_Pattern1();
 		Delay_ms(200);
 		LED_Pattern2();
 		Delay_ms(200);
 		LED_Pattern3();
+		Delay_ms(200);
+		LED_Pattern4();
 		Delay_ms(200);
 	}
 }

@@ -7,7 +7,7 @@
 
 #ifndef SSEG_CONFIG_H_
 #define SSEG_CONFIG_H_
-
+/*                                      My 7Segments are Common Anode                                           */
 /* Choose between 1-COMMON_CATHODE
  *                2-COMMON_ANODE
  */
@@ -26,6 +26,7 @@
  */
 #define      SSEG1_PORT         DIO_U8_PORTA
 #define      SSEG1_PART            LOW
+
 #define      SSEG2_PORT         DIO_U8_PORTB
 #define      SSEG2_PART            HIGH
 

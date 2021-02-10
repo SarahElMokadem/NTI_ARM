@@ -8,80 +8,76 @@
 #ifndef GPIO_INTERFACE_H_
 #define GPIO_INTERFACE_H_
 
-typedef enum{
-	DIO_U8_PORTA=0,
-	DIO_U8_PORTB,
-	DIO_U8_PORTC
-}DIO_enuPort_type;
+/*    To select one half from the Port>>8pins   */
+#define         LOW                     0
+#define         HIGH                    1
 
+#define 		DIO_U8_PORTA			0
+#define 		DIO_U8_PORTB			1
+#define 		DIO_U8_PORTC			2
 
-typedef enum{
-	DIO_U8_PIN0= 0,
-	DIO_U8_PIN1= 1,
-	DIO_U8_PIN2= 2,
-	DIO_U8_PIN3,
-	DIO_U8_PIN4,
-	DIO_U8_PIN5,
-	DIO_U8_PIN6,
-	DIO_U8_PIN7,
-	DIO_U8_PIN8,
-	DIO_U8_PIN9,
-	DIO_U8_PIN10,
-	DIO_U8_PIN11,
-	DIO_U8_PIN12,
-	DIO_U8_PIN13,
-	DIO_U8_PIN14,
-	DIO_U8_PIN15
-}DIO_enuPin_type;
+#define 		DIO_U8_PIN0		    	0
+#define 		DIO_U8_PIN1		    	1
+#define 		DIO_U8_PIN2		    	2
+#define 		DIO_U8_PIN3		    	3
+#define 		DIO_U8_PIN4		    	4
+#define 		DIO_U8_PIN5		    	5
+#define 		DIO_U8_PIN6		    	6
+#define 		DIO_U8_PIN7		    	7
+#define 		DIO_U8_PIN8		    	8
+#define 		DIO_U8_PIN9		    	9
+#define 		DIO_U8_PIN10	    	10
+#define 		DIO_U8_PIN11	    	11
+#define 		DIO_U8_PIN12	    	12
+#define 		DIO_U8_PIN13	    	13
+#define 		DIO_U8_PIN14	    	14
+#define 		DIO_U8_PIN15	    	15
 
-typedef enum{
-	DIO_U8_LOW=0,
-	DIO_U8_HIGH
-}DIO_enuPinValue_type;
+#define 		DIO_U8_HIGH				1
+#define 		DIO_U8_LOW				0
 
-typedef enum{
-	/*               INPUT OPTIONS                         */
-	DIO_INPUT_ANALOG=0b0000,
-	DIO_INPUT_FLOATING=0b0100,
-	DIO_INPUT_PULL_UP_DOWN=0b1000,
+/*				INPUT Options					*/
+#define			DIO_INPUT_ANALOG		0b0000
+#define			DIO_INPUT_FLOATING		0b0100
+#define			DIO_INPUT_PULL_UP_DOWN	0b1000
 
-	/*               OUTPUT 2 MHZ OPTIONS                    */
-	DIO_OUTPUT_2MHZ_PP=0b0010,
-	DIO_OUTPUT_2MHZ_OD=0b0110,
-	DIO_OUTPUT_2MHZ_AF_PP=0b1010,
-	DIO_OUTPUT_2MHZ_AF_OD=0b1110,
+/*				OUTPUT 2 MHz Options			*/
+#define			DIO_OUTPUT_2MHZ_PP		0b0010
+#define			DIO_OUTPUT_2MHZ_OD		0b0110
+#define			DIO_OUTPUT_2MHZ_AF_PP	0b1010
+#define			DIO_OUTPUT_2MHZ_AF_OD	0b1110
 
-	/*               OUTPUT 10 MHZ OPTIONS                   */
-	DIO_OUTPUT_10MHZ_PP=0b0001,
-	DIO_OUTPUT_10MHZ_OD=0b0101,
-	DIO_OUTPUT_10MHZ_AF_PP=0b1001,
-	DIO_OUTPUT_10MHZ_AF_OD=0b1101,
+/*				OUTPUT 10 MHz Options			*/
+#define			DIO_OUTPUT_10MHZ_PP		0b0001
+#define			DIO_OUTPUT_10MHZ_OD		0b0101
+#define			DIO_OUTPUT_10MHZ_AF_PP	0b1001
+#define			DIO_OUTPUT_10MHZ_AF_OD	0b1101
 
-	/*               OUTPUT 50 MHZ OPTIONS                   */
-	DIO_OUTPUT_50MHZ_PP=0b0011,
-	DIO_OUTPUT_50MHZ_OD=0b0111,
-	DIO_OUTPUT_50MHZ_AF_PP=0b1011,
-	DIO_OUTPUT_50MHZ_AF_OD=0b1111
-}DIO_enuPinMode_type;
+/*				OUTPUT 50 MHz Options			*/
+#define			DIO_OUTPUT_50MHZ_PP		0b0011
+#define			DIO_OUTPUT_50MHZ_OD		0b0111
+#define			DIO_OUTPUT_50MHZ_AF_PP	0b1011
+#define			DIO_OUTPUT_50MHZ_AF_OD	0b1111
 
+/*                    void DIO_voidSetPinDirection(port,pin,mode)  */
+void	DIO_voidSetPinDirection(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8Mode);
+/*                    if Pin is Output (High or Low)                */
+void	DIO_voidSetPinValue(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8Value);
 
-/*                    void DIO_voidSetPinDirection(port,pin,mode);*/
-void DIO_voidSetPinDirection(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy_u8PinID,DIO_enuPinMode_type Copy_u8Mode);
+/*                    if Pin is Input (High or Low)                 */
+u8		DIO_u8GetPinValue(u8 Copy_u8PortID,u8 Copy_u8PinID);
 
-/*                    if Pin is Output (High or Low)              */
-void DIO_voidSetPinValue(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy_u8PinID,DIO_enuPinValue_type Copy_u8Value);
+/*                    TOGGLE PIN                                    */
+void DIO_voidTogglePin(u8 Copy_u8PortID, u8 Copy_u8PinID);
 
-/*                    if Pin is Input (High or Low)               */
-u8 DIO_u8GetPinValue(DIO_enuPort_type Copy_u8PortID,DIO_enuPin_type Copy_u8PinID);
+/*                    SET PORT DIRECTION                            */
+void DIO_voidSetPortDirection( u8 Copy_u8PortID , u8 Copy_u8Part , u8 Copy_u8Mode );
 
-/*                    SET PORT DIRECTION                          */
-void DIO_voidSetPortDirection(DIO_enuPort_type Copy_u8PortID ,DIO_enuPinMode_type  Copy_u8Mode);
+/*                    SET PORT VALUE                                */
+void DIO_voidSetPortValue( u8 Copy_u8PortID , u8 Copy_u8Part , u16 Copy_u16Value );
 
-/*                    SET PORT VALUE                              */
-void DIO_voidSetPortValue(DIO_enuPort_type Copy_u8PortID , u16  Copy_u16Value);
-
-/*                    GET PORT VALUE                              */
-u16 DIO_u16GetPortValue(DIO_enuPort_type Copy_u8PortID);
+/*                    GET PORT VALUE                                */
+u16 DIO_u16GetPortValue( u8 Copy_u8PortID , u8 Copy_u8Part );
 
 
 #endif /* GPIO_INTERFACE_H_ */

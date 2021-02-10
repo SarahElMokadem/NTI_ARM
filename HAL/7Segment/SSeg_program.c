@@ -71,8 +71,12 @@ void SSEG_VoidDisplayHex(u8 number)
 
 void SSEG_VoidDisplayNumber(u8 number)
 {
+	/*  The solution of the Bug --> When we use the high value of port B to write on it ,
+	 *  we have give the 7seg number shifted left to write on the 2nd 8 bits not 1st
+	 * */
 	DIO_voidSetPortValue(SSEG1_PORT,SSEG1_PART,segAnode[number/10]);
 	//DIO_voidSetPortValue(SSEG2_PORT,SSEG2_PART,segAnode[number%10]); /* Bug when using the port */
+
 	u8 Local_u8Units = number%10 ;
 	switch(Local_u8Units)
 	{
